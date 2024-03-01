@@ -1,10 +1,12 @@
 from json import dumps
 
-from flask import request
+from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from models.book_model import BookModel
 from database.db import db
+from schema.schemas import BookSchema
+
 
 blp = Blueprint("books", __name__, description="This endpoint of responsible for fetching books by genre or "
                                                "category and to recommend books as well")
@@ -12,6 +14,7 @@ blp = Blueprint("books", __name__, description="This endpoint of responsible for
 
 @blp.route("/books")
 class Book(MethodView):
+    @blp.response(200, BookSchema)
     def get(self):
         # Query all books from the database
         books = BookModel.query.all()
@@ -30,10 +33,14 @@ class Book(MethodView):
             }
             books_dict.append(book_dict)
 
-        # Serialize the list of dictionaries into JSON format
-        return {"items": len(books), "data": books_dict}
+        serialized_books = BookSchema(many=True).dump(books_dict)
 
-    def post(self):
+        # Serialize the list of dictionaries into JSON format
+        return jsonify({"items": len(books), "data": serialized_books})
+
+    @blp.arguments(BookSchema)
+    @blp.response(200, BookSchema)
+    def post(self, *args, **kwargs):
         data = request.get_json()
 
         new_book = BookModel(
@@ -58,4 +65,6 @@ class Book(MethodView):
             "genres": new_book.genres.split(", ")
         }
 
-        return {"book": book_dict}
+        serialized_book = BookSchema().dump(book_dict)
+
+        return jsonify({"book": serialized_book})
