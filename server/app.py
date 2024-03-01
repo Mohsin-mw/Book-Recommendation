@@ -8,6 +8,7 @@ from flask_smorest import Api
 from database.db import db
 import models
 from resources.Book import blp as BookBlueprint
+from flask_migrate import Migrate
 
 
 def create_app(db_url=None):
@@ -32,6 +33,8 @@ def create_app(db_url=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
+
+    migrate = Migrate(app, db)
 
     # Create an API instance
     api = Api(app)
