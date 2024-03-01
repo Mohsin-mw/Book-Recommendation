@@ -26,14 +26,19 @@ def create_book_dict(book):
         "genres": format_genres(book.genres)
     }
 
-
 @blp.route("/books")
 class Book(MethodView):
     @blp.response(200, BookSchema)
     def get(self):
         try:
-            # Query all books from the database
-            books = BookModel.query.all()
+            # Get the genre from the request query parameters
+            genre = request.args.get('genre')
+
+            # Query books with the specified genre using SQLAlchemy
+            if genre:
+                books = BookModel.query.filter(BookModel.genres.like(f'%{genre}%')).all()
+            else:
+                books = BookModel.query.all()
 
             # Convert each BookModel object into a dictionary representation
             books_dict = [create_book_dict(book) for book in books]
