@@ -1,5 +1,3 @@
-from json import dumps
-
 from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint
@@ -7,64 +5,70 @@ from models.book_model import BookModel
 from database.db import db
 from schema.schemas import BookSchema
 
+blp = Blueprint("books", __name__, description="This endpoint is responsible for fetching books by genre or "
+                                               "category and recommending books as well")
 
-blp = Blueprint("books", __name__, description="This endpoint of responsible for fetching books by genre or "
-                                               "category and to recommend books as well")
+
+def format_genres(genres):
+    if not genres:
+        return []
+    return [genre.strip().strip("'") for genre in genres.strip("[]").split(",")]
+
+
+def create_book_dict(book):
+    return {
+        "id": book.id,
+        "image": book.image,
+        "title": book.title,
+        "author": book.author,
+        "rating": book.rating,
+        "description": book.description,
+        "genres": format_genres(book.genres)
+    }
 
 
 @blp.route("/books")
 class Book(MethodView):
     @blp.response(200, BookSchema)
     def get(self):
-        # Query all books from the database
-        books = BookModel.query.all()
+        try:
+            # Query all books from the database
+            books = BookModel.query.all()
 
-        # Convert each BookModel object into a dictionary representation
-        books_dict = []
-        for book in books:
-            book_dict = {
-                "id": book.id,
-                "image": book.image,
-                "title": book.title,
-                "author": book.author,
-                "rating": book.rating,
-                "description": book.description,
-                "genres": book.genres.split(", ") if book.genres else []  # Convert genres string to list
-            }
-            books_dict.append(book_dict)
+            # Convert each BookModel object into a dictionary representation
+            books_dict = [create_book_dict(book) for book in books]
 
-        serialized_books = BookSchema(many=True).dump(books_dict)
+            serialized_books = BookSchema(many=True).dump(books_dict)
 
-        # Serialize the list of dictionaries into JSON format
-        return jsonify({"items": len(books), "data": serialized_books})
+            # Serialize the list of dictionaries into JSON format
+            return jsonify({"items": len(books), "data": serialized_books})
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
     @blp.arguments(BookSchema)
     @blp.response(200, BookSchema)
     def post(self, *args, **kwargs):
-        data = request.get_json()
+        try:
+            data = request.get_json()
+            required_fields = ["image", "title", "author", "rating", "description", "genres"]
+            if not all(field in data for field in required_fields):
+                return jsonify({"error": "Missing required fields"}), 400
 
-        new_book = BookModel(
-            image=data["image"],
-            title=data["title"],
-            author=data["author"],
-            rating=data["rating"],
-            description=data["description"],
-            genres=", ".join(data["genres"])
-        )
+            new_book = BookModel(
+                image=data["image"],
+                title=data["title"],
+                author=data["author"],
+                rating=data["rating"],
+                description=data["description"],
+                genres=", ".join(data["genres"])
+            )
 
-        db.session.add(new_book)
-        db.session.commit()
+            db.session.add(new_book)
+            db.session.commit()
 
-        book_dict = {
-            "id": new_book.id,
-            "image": new_book.image,
-            "title": new_book.title,
-            "author": new_book.author,
-            "rating": new_book.rating,
-            "description": new_book.description,
-            "genres": new_book.genres.split(", ")
-        }
+            book_dict = create_book_dict(new_book)
+            serialized_book = BookSchema().dump(book_dict)
 
-        serialized_book = BookSchema().dump(book_dict)
-
-        return jsonify({"book": serialized_book})
+            return jsonify({"book": serialized_book})
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
