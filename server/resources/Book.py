@@ -77,3 +77,24 @@ class Book(MethodView):
             return jsonify({"book": serialized_book})
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
+
+@blp.route("/books/<int:bookId>")
+class BooksById(MethodView):
+    @blp.response(200, BookSchema)
+    def get(self, bookId):
+        try:
+
+            # Query the book by its ID
+            book = BookModel.query.get(bookId)
+            if not book:
+                return jsonify({"error": "Book not found"}), 404
+
+            # Serialize the book object into JSON format using the BookSchema
+            serialized_book = BookSchema().dump(book)
+            serialized_book["genres"] = format_genres(book.genres)
+
+            return jsonify({"book": serialized_book})
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
