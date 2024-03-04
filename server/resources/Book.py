@@ -4,6 +4,29 @@ from flask_smorest import Blueprint
 from models.book_model import BookModel
 from database.db import db
 from schema.schemas import BookSchema
+import pickle
+
+# Importing trained Model
+new_data = pickle.load(open('algorithm/movies_list.pkl', 'rb'))
+similarity = pickle.load(open('algorithm/similarity.pkl', 'rb'))
+
+
+def recommend(title, num_recommendations=10):
+    index = new_data[new_data['Title'] == title].index[0]
+    distance = sorted(enumerate(similarity[index]), reverse=True, key=lambda vector: vector[1])
+    recommendations = []
+    for i in distance[1:num_recommendations + 1]:
+        book_info = new_data.iloc[i[0]]
+        recommendations.append({
+            'Title': book_info.Title,
+            'Author': book_info.Author,
+            'Rating': book_info.Rating,
+            'Description': book_info.Description,
+            'Genres': book_info.Genres,
+            'Image': book_info.Image
+        })
+    return recommendations
+
 
 blp = Blueprint("books", __name__, description="This endpoint is responsible for fetching books by genre or "
                                                "category and recommending books as well")
@@ -26,27 +49,23 @@ def create_book_dict(book):
         "genres": format_genres(book.genres)
     }
 
+
 @blp.route("/books")
 class Book(MethodView):
-    @blp.response(200, BookSchema)
+    # @blp.response(200, BookSchema)
+    # @blp.response(200, BookSchema)
     def get(self):
         try:
-            # Get the genre from the request query parameters
-            genre = request.args.get('genre')
-
-            # Query books with the specified genre using SQLAlchemy
-            if genre:
-                books = BookModel.query.filter(BookModel.genres.like(f'%{genre}%')).all()
+            query = request.args.get('query')
+            if query:
+                books = BookModel.query.filter(BookModel.title.ilike(f'%{query}%')).all()
             else:
                 books = BookModel.query.all()
 
-            # Convert each BookModel object into a dictionary representation
             books_dict = [create_book_dict(book) for book in books]
-
             serialized_books = BookSchema(many=True).dump(books_dict)
 
-            # Serialize the list of dictionaries into JSON format
-            return jsonify({"items": len(books), "data": serialized_books})
+            return jsonify({"items": len(books_dict), "data": serialized_books})
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
@@ -84,17 +103,25 @@ class BooksById(MethodView):
     @blp.response(200, BookSchema)
     def get(self, bookId):
         try:
-
-            # Query the book by its ID
             book = BookModel.query.get(bookId)
             if not book:
                 return jsonify({"error": "Book not found"}), 404
 
-            # Serialize the book object into JSON format using the BookSchema
             serialized_book = BookSchema().dump(book)
             serialized_book["genres"] = format_genres(book.genres)
 
             return jsonify({"book": serialized_book})
 
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+
+@blp.route("/recommendations")
+class Recommendations(MethodView):
+    def post(self, *args, **kwargs):
+        try:
+            data = request.get_json()
+            recommended_books = recommend(data['title'], num_recommendations=10)
+            return {"books": recommended_books}
         except Exception as e:
             return jsonify({"error": str(e)}), 500
