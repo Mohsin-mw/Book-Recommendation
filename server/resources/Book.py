@@ -12,6 +12,7 @@ similarity = pickle.load(open('algorithm/similarity.pkl', 'rb'))
 
 
 def recommend(title, num_recommendations=10):
+
     index = new_data[new_data['Title'] == title].index[0]
     distance = sorted(enumerate(similarity[index]), reverse=True, key=lambda vector: vector[1])
     recommendations = []
@@ -50,7 +51,7 @@ def create_book_dict(book):
     }
 
 
-@blp.route("/books")
+@blp.route("/api/books")
 class Book(MethodView):
     # @blp.response(200, BookSchema)
     # @blp.response(200, BookSchema)
@@ -58,10 +59,13 @@ class Book(MethodView):
         try:
             query = request.args.get('query')
             if query:
-                books = BookModel.query.filter(BookModel.title.ilike(f'%{query}%')).all()
+                # Query books and limit the result to 7
+                books = BookModel.query.filter(BookModel.title.ilike(f'%{query}%')).limit(7).all()
             else:
-                books = BookModel.query.all()
+                # Query all books and limit the result to 7
+                books = BookModel.query.limit(7).all()
 
+            # Serialize books
             books_dict = [create_book_dict(book) for book in books]
             serialized_books = BookSchema(many=True).dump(books_dict)
 
@@ -98,12 +102,12 @@ class Book(MethodView):
             return jsonify({"error": str(e)}), 500
 
 
-@blp.route("/books/<int:bookId>")
+@blp.route("/books/<string:bookTitle>")
 class BooksById(MethodView):
     @blp.response(200, BookSchema)
-    def get(self, bookId):
+    def get(self, bookTitle):
         try:
-            book = BookModel.query.get(bookId)
+            book = BookModel.query.filter_by(title=bookTitle).first()
             if not book:
                 return jsonify({"error": "Book not found"}), 404
 
@@ -123,5 +127,37 @@ class Recommendations(MethodView):
             data = request.get_json()
             recommended_books = recommend(data['title'], num_recommendations=10)
             return {"books": recommended_books}
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+
+@blp.route("/api/books/genres/<string:genre>")
+class BooksByGenre(MethodView):
+    def get(self, genre):
+        try:
+            page = int(request.args.get('page', 1))  # Default page is 1 if not provided
+            per_page = int(request.args.get('per_page', 10))  # Default per_page is 10 if not provided
+
+            # Query for books based on the genre
+            query = BookModel.query.filter(BookModel.genres.like(f'%{genre}%'))
+
+            # Paginate the query results
+            paginated_books = query.paginate(page=page, per_page=per_page, error_out=False)
+
+            # Serialize the paginated books
+            books_dict = [create_book_dict(book) for book in paginated_books.items]
+            serialized_books = BookSchema(many=True).dump(books_dict)
+
+            # Construct pagination metadata
+            pagination = {
+                "total_books": paginated_books.total,
+                "total_pages": paginated_books.pages,
+                "current_page": paginated_books.page,
+                "per_page": paginated_books.per_page,
+                "has_next": paginated_books.has_next,
+                "has_prev": paginated_books.has_prev
+            }
+
+            return jsonify({"books": serialized_books, "pagination": pagination})
         except Exception as e:
             return jsonify({"error": str(e)}), 500

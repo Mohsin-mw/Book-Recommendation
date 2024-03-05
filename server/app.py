@@ -9,12 +9,12 @@ from database.db import db
 import models
 from resources.Book import blp as BookBlueprint
 from flask_migrate import Migrate
-
+from flask_cors import CORS
 
 def create_app(db_url=None):
     # Create a Flask application instance
     app = Flask(__name__)
-
+    CORS(app)
     # Configure the application to propagate exceptions
     app.config["PROPAGATE_EXCEPTIONS"] = True
 
