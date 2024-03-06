@@ -29,7 +29,7 @@ const HeroTestimonials = () => {
                     {
                         reviews.map((review, i) => (
                             <CarouselItem className="" key={i}>
-                                <p className="paragraph-regular pt-8 text-quaternary italic">
+                                <p className="paragraph-regular pt-8 hidden md:inline-block text-quaternary italic">
                                     {review.description}, <span
                                     className="text-black paragraph-semibold italic">{review.username}</span>
                                 </p>

@@ -183,11 +183,7 @@
         @apply invert dark:invert-0;
     }
 
-    .shadow-light100_dark100 {
-        @apply shadow-light-100 dark:shadow-dark-100;
-    }
-
-    .shadow-light100_darknone {
+    .shadow-light100 {
         @apply shadow-light-100 dark:shadow-none;
     }
 
