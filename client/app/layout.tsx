@@ -1,33 +1,24 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 import React from "react";
-import { ThemeProvider } from "@/providers/themeProvider";
-import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from "next";
+import {Outfit} from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({subsets: ["latin"]})
 
 export const metadata: Metadata = {
-  title: "Book Recommender",
-  description: "lorem100",
+  title: "Trouve Moi Un livre",
+  description: "Trouve moi un livre is a website that takes account of a book that you have liked and will recommend you with others books that you might enjoy! Once a book picked your interests, you can then click on it and interact with others about it! \n" +
+      "But so you know, bear with us, it's only the beginning stage of our marvellous journey so as time go this website will get better and better. We'll implement many more functionnalities and provide more meaningfull recommendation to you! Can't wait for what is to come.",
 };
+
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-        <Toaster />
-      </body>
+      <body className={`${outfit.className} bg-secondary`}>{children}</body>
     </html>
   );
 }
