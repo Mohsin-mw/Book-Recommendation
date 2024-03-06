@@ -4,15 +4,16 @@ import React, {useState} from "react";
 import Link from "next/link";
 import {Input} from "@/components/ui/input";
 import {BiSearch} from "react-icons/bi";
-import {QueryBooks} from "@/network/endpoints/BooksApi";
 import {Button} from "@/components/ui/button";
 import {queryInterface} from "@/types/types";
+import {QueryBooks} from "@/network/endpoints/BooksApi";
 
 const Search = () => {
-
     const [query, setQuery] = useState('');
+
+
     const [suggestions, setSuggestions] = useState<queryInterface>();
-    const handleChange = async (event: { target: { value: any; }; }) => {
+    const handleChange = async (event: { target: { value: string; }; }) => {
         const newQuery = event.target.value;
         setQuery(newQuery);
         try {
@@ -25,6 +26,7 @@ const Search = () => {
             setSuggestions(undefined)
         }
     };
+
 
     return (
         <>
@@ -59,7 +61,7 @@ const Search = () => {
                                     <Link
                                         key={i}
                                         className="py-2 border-b-2 hover:border-b-primary duration-200 hover:text-[17px] w-full group"
-                                        href={`/genres/${book.title}`}>{book.title}<span
+                                        href={`/book/${book.title}`}>{book.title}<span
                                         className="text-quaternary text-sm opacity-0 group-hover:opacity-100 duration-200"> ~ Author: {book.author}</span></Link>
                                 ))
                             }
