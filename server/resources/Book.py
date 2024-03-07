@@ -29,6 +29,15 @@ def recommend(title, num_recommendations=10):
     return recommendations
 
 
+def lowercase_keys(obj):
+    if isinstance(obj, dict):
+        return {key.lower(): lowercase_keys(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [lowercase_keys(item) for item in obj]
+    else:
+        return obj
+
+
 # Blueprint definition
 blp = Blueprint("books", __name__,
                 description="This endpoint is responsible for fetching books by genre or category and recommending books as well")
@@ -131,13 +140,14 @@ class BooksById(MethodView):
             return make_response(error=str(e), status=500)
 
 
-@blp.route("/recommendations")
+@blp.route("/api/recommendations")
 class Recommendations(MethodView):
     def post(self, *args, **kwargs):
         try:
             data = request.get_json()
             recommended_books = recommend(data['title'], num_recommendations=10)
-            return make_response(data={"books": recommended_books})
+            lowercase_books = lowercase_keys(recommended_books)
+            return make_response(data={"books": lowercase_books})
 
         except Exception as e:
             return make_response(error=str(e), status=500)

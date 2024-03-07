@@ -4,6 +4,7 @@ import Link from "next/link";
 import {GetBook} from "@/network/endpoints/BooksApi";
 import {bookInterface} from "@/types/types";
 import {AxiosAdapter} from "axios";
+import Recommendations from "@/components/pages/Book/Recommendations";
 
 const Page = async ({params}: { params: { book: string } }) => {
     const response = await GetBook(params.book);
@@ -41,6 +42,13 @@ const Page = async ({params}: { params: { book: string } }) => {
                 </div>
             </div>
             <span className="block h-[3px] bg-slate-200"></span>
+            <div className="bg-primary">
+                <div className="container text-white font-bold py-4">
+                    Recommendations for ~ {book.title}
+                </div>
+            </div>
+            <span className="block h-[3px] bg-slate-200"></span>
+            <Recommendations title={book.title}/>
         </div>
     );
 };
