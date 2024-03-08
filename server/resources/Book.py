@@ -145,7 +145,7 @@ class Recommendations(MethodView):
     def post(self, *args, **kwargs):
         try:
             data = request.get_json()
-            recommended_books = recommend(data['title'], num_recommendations=10)
+            recommended_books = recommend(data['title'], num_recommendations=30)
             lowercase_books = lowercase_keys(recommended_books)
             return make_response(data={"books": lowercase_books})
 
