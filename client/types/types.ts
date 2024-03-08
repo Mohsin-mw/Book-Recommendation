@@ -12,3 +12,4 @@ export interface queryInterface {
     books: bookInterface[],
     items: number
 }
+

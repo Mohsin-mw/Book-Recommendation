@@ -12,3 +12,7 @@ export async function GetBook(title: string): Promise<AxiosPromise> {
 export async function GetRecommendations(title: string): Promise<AxiosPromise> {
     return await axiosClient().post(`/recommendations`, {title}).then(res => res.data)
 }
+
+export async function GetBooksByGenre(genre: string, page?: number): Promise<AxiosPromise> {
+    return await axiosClient().get(`/books/genres/${genre}?page=${page ? page : 1}`)
+}

@@ -18,16 +18,16 @@ const Navbar = () => {
                     </Link>
                     <div className=" hidden md:flex-row-start w-full py-2">
                         <div className="flex-row-between gap-x-4 py-4">
-                            <Link href={"/genres/Romance"} className="body-medium">
+                            <Link href={"/genre/Romance"} className="body-medium">
                                 Romance
                             </Link>
-                            <Link href={"/genres/History"} className="body-medium">
+                            <Link href={"/genre/History"} className="body-medium">
                                 History
                             </Link>
-                            <Link href={"/genres/Memoir"} className="body-medium">
+                            <Link href={"/genre/Memoir"} className="body-medium">
                                 Memoirs
                             </Link>
-                            <Link href={"/genres/Self Help"} className="body-medium">
+                            <Link href={"/genre/Self Help"} className="body-medium">
                                 Self Help
                             </Link>
                         </div>
