@@ -3,8 +3,6 @@
 import React, {useEffect, useState} from 'react';
 import {GetBooksByGenre} from "@/network/endpoints/BooksApi";
 import {bookInterface} from "@/types/types";
-import Link from "next/link";
-import Image from "next/image";
 import {IconBook} from "@tabler/icons-react";
 import {
     Pagination,

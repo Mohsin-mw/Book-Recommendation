@@ -31,7 +31,7 @@ const Page = async ({params}: { params: { book: string } }) => {
                             {
                                 book.genres.map((genre, index) => (
                                     <Link
-                                        href={`/genres/${genre}`}
+                                        href={`/genre/${genre}`}
                                         className="bg-secondary rounded-full text-tertiary hover:bg-primary hover:text-white cursor-pointer duration-300 text-sm py-1 px-4"
                                         key={index}>{genre}</Link>
                                 ))
