@@ -8,6 +8,9 @@ from flask_smorest import Api
 from database.db import db
 import models
 from resources.Book import blp as BookBlueprint
+from resources.User import user_blp as UserBlueprint
+from resources.UserFavorites import blp as UserFavorites
+from resources.Comments import comment_blp as CommentBlueprint
 from flask_migrate import Migrate
 from flask_cors import CORS
 
@@ -29,20 +32,21 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
     # Configure Database
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url or os.getenv('DATABASE_URL', 'sqlite:///data.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/bookRecommendation'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
 
     migrate = Migrate(app, db)
 
-    # Create an API instance
     api = Api(app)
 
     with app.app_context():
         db.create_all()
 
-    # Register the BookBlueprint blueprint with the API
     api.register_blueprint(BookBlueprint)
+    api.register_blueprint(UserBlueprint)
+    api.register_blueprint(UserFavorites)
+    api.register_blueprint(CommentBlueprint)
 
     return app

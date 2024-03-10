@@ -34,6 +34,7 @@ class Comments(MethodView):
             new_comment = CommentModel(
                 book_id=data['book_id'],
                 user_id=data['user_id'],
+                user_name=data['user_name'],  # Add user_name field
                 comment_text=data['comment_text']
             )
             db.session.add(new_comment)
