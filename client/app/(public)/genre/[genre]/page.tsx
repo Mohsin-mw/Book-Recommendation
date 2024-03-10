@@ -38,7 +38,6 @@ const Page = ({params}: { params: { genre: string } }) => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-            console.log("loading")
             setError(null);
 
             try {
