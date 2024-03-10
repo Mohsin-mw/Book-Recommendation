@@ -33,6 +33,7 @@ const Search = () => {
             <div
                 className="my-2 inline-block rounded-full border-primary-500  lg:bg-white py-2 lg:pl-4 pr-4 drop-shadow-2xl  relative z-50 w-full md:w-auto ">
                 <div
+                    id="#searchSection"
                     className="flex-column-center inline-block md:flex-row lg:flex-row-start xl:flex-row-start gap-y-4">
                     <div className="relative w-full">
                         <Input

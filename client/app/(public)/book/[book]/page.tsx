@@ -7,6 +7,7 @@ import {AxiosAdapter} from "axios";
 import Recommendations from "@/components/pages/Book/Recommendations";
 import BookHeader from "@/components/pages/Book/BookHeader";
 import {auth} from "@clerk/nextjs";
+import Comments from "@/components/pages/Book/Comments";
 
 const Page = async ({params}: { params: { book: string } }) => {
     const response = await GetBook(params.book);
@@ -52,6 +53,7 @@ const Page = async ({params}: { params: { book: string } }) => {
             </div>
             <span className="block h-[3px] bg-slate-200"></span>
             <Recommendations title={book.title}/>
+            <Comments bookId={book.id}/>
         </div>
     );
 };

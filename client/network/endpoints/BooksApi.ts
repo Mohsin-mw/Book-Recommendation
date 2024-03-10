@@ -36,3 +36,25 @@ export async function GetRecommendations(title: string, page: number = 1, perPag
 export async function GetBooksByGenre(genre: string, page?: number): Promise<AxiosPromise> {
     return await axiosClient().get(`/books/genres/${genre}?page=${page ? page : 1}`)
 }
+
+
+export async function getAllComments(): Promise<AxiosPromise> {
+    return await axiosClient().get('/comments');
+}
+
+export async function addComment(commentData: any): Promise<AxiosPromise> {
+    console.log(commentData)
+    return await axiosClient().post('/comments', commentData);
+}
+
+export async function updateComment(commentId: number, commentData: any): Promise<AxiosPromise> {
+    return await axiosClient().put(`/comments/${commentId}`, commentData);
+}
+
+export async function deleteComment(commentId: number): Promise<AxiosPromise> {
+    return await axiosClient().delete(`/comments/${commentId}`);
+}
+
+export async function getCommentsByBook(bookId: number): Promise<AxiosPromise> {
+    return await axiosClient().get(`/comments/book/${bookId}`);
+}

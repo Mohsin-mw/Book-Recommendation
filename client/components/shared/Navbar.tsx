@@ -36,7 +36,7 @@ const Navbar = async () => {
                     </div>
                 </span>
                 <span className="flex-row-center gap-x-8">
-                    <Link href={"/about"} className="hidden md:inline body-medium">About</Link>
+                    {/*<Link href={"/about"} className="hidden md:inline body-medium">About</Link>*/}
                     {
                         userId ? (
                             (

@@ -11,8 +11,8 @@ export function NavbarFloating() {
             icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },
         {
-            name: "About",
-            link: "/about",
+            name: "Search",
+            link: "#searchSection",
             icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },
         {

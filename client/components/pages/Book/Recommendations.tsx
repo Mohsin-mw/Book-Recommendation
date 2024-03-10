@@ -45,7 +45,6 @@ const Recommendations = ({title}: { title: string }) => {
                 setError(error.message);
             } finally {
                 setIsLoading(false);
-                console.log("loading done")
             }
 
         };

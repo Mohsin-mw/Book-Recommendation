@@ -70,3 +70,11 @@
     background-color: #D7A079;
 
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+.nextjs-toast-errors-parent {
+    display: none;
+}
