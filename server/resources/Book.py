@@ -1,3 +1,5 @@
+from math import ceil
+
 from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint
@@ -147,8 +149,30 @@ class Recommendations(MethodView):
             data = request.get_json()
             recommended_books = recommend(data['title'], num_recommendations=30)
             lowercase_books = lowercase_keys(recommended_books)
-            return make_response(data={"books": lowercase_books})
 
+            # Pagination parameters
+            page = request.args.get('page', 1, type=int)
+            per_page = request.args.get('per_page', 10, type=int)
+
+            # Calculate start and end index for pagination
+            start_index = (page - 1) * per_page
+            end_index = min(start_index + per_page, len(lowercase_books))
+
+            # Extract the subset of recommended books for the current page
+            paginated_books = lowercase_books[start_index:end_index]
+
+            # Calculate total number of pages
+            total_pages = ceil(len(lowercase_books) / per_page)
+
+            # Prepare pagination metadata
+            pagination = {
+                "current_page": page,
+                "total_pages": total_pages,
+                "per_page": per_page,
+                "total_books": len(lowercase_books)
+            }
+
+            return make_response(data={"books": paginated_books, "pagination": pagination})
         except Exception as e:
             return make_response(error=str(e), status=500)
 
