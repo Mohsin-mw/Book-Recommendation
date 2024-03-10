@@ -5,10 +5,13 @@ import {GetBook} from "@/network/endpoints/BooksApi";
 import {bookInterface} from "@/types/types";
 import {AxiosAdapter} from "axios";
 import Recommendations from "@/components/pages/Book/Recommendations";
+import BookHeader from "@/components/pages/Book/BookHeader";
+import {auth} from "@clerk/nextjs";
 
 const Page = async ({params}: { params: { book: string } }) => {
     const response = await GetBook(params.book);
     const {book, error}: { book: bookInterface, error: AxiosAdapter } = response.data
+    const {userId} = auth();
 
     return (
         <div>
@@ -24,7 +27,7 @@ const Page = async ({params}: { params: { book: string } }) => {
                         />
                     </div>
                     <div className="w-full flex-column-start">
-                        <h2 className="text-[50px] font-medium">{book.title}</h2>
+                        <BookHeader book={book} userId={userId}/>
                         <p className="text-quaternary italic">Author ~ <span className="not-italic">{book.author}</span>
                         </p>
                         <div className=" hidden md:grid lg:grid-cols-5  gap-y-4 gap-x-4 py-4">

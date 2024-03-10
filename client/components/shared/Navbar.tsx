@@ -2,8 +2,10 @@ import React from "react";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {auth, UserButton} from "@clerk/nextjs";
 
-const Navbar = () => {
+const Navbar = async () => {
+    const {userId} = auth();
     return (
         <div className="bg-slate-50">
             <div className="h-24 container py-8 flex-row-between">
@@ -35,7 +37,22 @@ const Navbar = () => {
                 </span>
                 <span className="flex-row-center gap-x-8">
                     <Link href={"/about"} className="hidden md:inline body-medium">About</Link>
-                    <Button>Sign In</Button>
+                    {
+                        userId ? (
+                            (
+                                <>
+                                    <Link href={"/favorite"} className="body-medium">
+                                        Favorites
+                                    </Link>
+                                    <UserButton/>
+                                </>
+                            )
+                        ) : (
+                            <Link href={"/sign-in"}>
+                                <Button>Sign In</Button>
+                            </Link>
+                        )
+                    }
                 </span>
             </div>
             <span className="block h-[3px] bg-slate-200"></span>
