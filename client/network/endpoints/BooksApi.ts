@@ -37,6 +37,10 @@ export async function GetBooksByGenre(genre: string, page?: number): Promise<Axi
     return await axiosClient().get(`/books/genres/${genre}?page=${page ? page : 1}`)
 }
 
+export async function GetTopRatedBooks(): Promise<AxiosPromise> {
+    return await axiosClient().get(`/books/top-rated`).then(res => res.data)
+}
+
 
 export async function getAllComments(): Promise<AxiosPromise> {
     return await axiosClient().get('/comments');
@@ -58,3 +62,4 @@ export async function deleteComment(commentId: number): Promise<AxiosPromise> {
 export async function getCommentsByBook(bookId: number): Promise<AxiosPromise> {
     return await axiosClient().get(`/comments/book/${bookId}`);
 }
+

@@ -1,6 +1,3 @@
-"use client";
-
-import React, {useEffect, useState} from "react";
 import {InfiniteMovingCards} from "@/components/ui/infinite-moving-cards";
 
 export function Testimonials() {
@@ -45,5 +42,35 @@ const testimonials = [
             "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
         name: "Herman Melville",
         title: "Moby-Dick",
+    },
+    {
+        quote:
+            "There is no greater agony than bearing an untold story inside you.",
+        name: "Maya Angelou",
+        title: "I Know Why the Caged Bird Sings",
+    },
+    {
+        quote:
+            "All human wisdom is contained in these two words - Wait and Hope.",
+        name: "Alexandre Dumas",
+        title: "The Count of Monte Cristo",
+    },
+    {
+        quote:
+            "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
+        name: "Steve Jobs",
+        title: "Steve Jobs: The Exclusive Biography",
+    },
+    {
+        quote:
+            "To live is the rarest thing in the world. Most people exist, that is all.",
+        name: "Oscar Wilde",
+        title: "The Soul of Man under Socialism",
+    },
+    {
+        quote:
+            "Books are the mirrors of the soul.",
+        name: "Virginia Woolf",
+        title: "Between the Acts",
     },
 ];
