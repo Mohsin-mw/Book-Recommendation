@@ -203,3 +203,19 @@ class BooksByGenre(MethodView):
 
         except Exception as e:
             return make_response(error=str(e), status=500)
+
+@blp.route("/api/books/top-rated", methods=['GET'])
+class TopRatedBooks(MethodView):
+    def get(self):
+        try:
+            # Get the top 10 rated books from the database
+            top_rated_books = BookModel.query.order_by(BookModel.rating.desc()).limit(10).all()
+
+            # Serialize the top rated books
+            serialized_books = [create_book_dict(book) for book in top_rated_books]
+
+            # Return the serialized top rated books
+            return make_response(data={"top_rated_books": serialized_books})
+
+        except Exception as e:
+            return make_response(error=str(e), status=500)
