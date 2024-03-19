@@ -12,6 +12,7 @@ const Blogs = () => {
             title: "Création du site web Trouve Moi Un Livre",
             description: "Nous somme heureux de vous annoncer la création de notre site web\n" +
                 "\n" +
+
                 "Nous sommes ravis de vous annoncer que la création de notre tout nouveau site web est en cours ! Bien que le site ne soit pas encore fonctionnel, nous travaillons sans relâche en coulisses pour vous offrir une expérience en ligne exceptionnelle.\n" +
                 "\n" +
                 "Cette initiative est le résultat d'efforts acharnés et de dévouement de notre équipe, et nous sommes impatients de partager ce projet avec vous dans un avenir proche.",

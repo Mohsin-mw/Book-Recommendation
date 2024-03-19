@@ -4,13 +4,16 @@ import React from "react";
 import {bookInterface} from "@/types/types";
 
 
-const BooksGrid = ({books}: { books: bookInterface[] }) => {
+const BooksGrid = ({books, gridSize, url}: { books: bookInterface[], url?: "admin" | "public", gridSize?: number }) => {
     return (
-        <div className="container py-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-8">
+        <div
+            className={`container py-8 grid grid-cols-1 md:grid-cols-3 ${gridSize ? `lg:grid-cols-${gridSize}` : "lg:grid-cols-5"} gap-x-4 gap-y-8`}>
             {
                 books.map((book, index) => (
-                    <Link href={`/book/${encodeURIComponent(book.title)}`} key={index}
-                          className="bg-white rounded-md shadow-lg flex-column-start hover:scale-105 duration-200">
+                    <Link
+                        href={url == "admin" ? `/admin-books/${encodeURIComponent(book.title)}` : `/book/${encodeURIComponent(book.title)}`}
+                        key={index}
+                        className="bg-white rounded-md shadow-lg flex-column-start hover:scale-105 duration-200">
                         <Image className="object-cover w-full md:h-96  rounded-md overflow-hidden"
                                src={book.image}
                                width={270}

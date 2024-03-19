@@ -21,7 +21,6 @@ const Comments = async ({bookId}: { bookId: number }) => {
         const user = await clerkClient.users.getUser(userId);
         const userEmail = user.emailAddresses[0].emailAddress;
         email = userEmail
-        console.log(userId, userEmail)
     }
 
     const formatTimestamp = (timestamp: string) => {

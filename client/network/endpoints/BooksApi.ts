@@ -63,3 +63,19 @@ export async function getCommentsByBook(bookId: number): Promise<AxiosPromise> {
     return await axiosClient().get(`/comments/book/${bookId}`);
 }
 
+// ADMIN ROUTES
+export async function adminGetAllBooks(page: number = 1, perPage: number = 10): Promise<AxiosPromise> {
+    try {
+        return await axiosClient().get(`/books/all?page=${page}`);
+    } catch (error: any) {
+        throw new Error(error.response.data.error || 'Failed to get books');
+    }
+}
+
+export async function adminUpdateBook(id: number | undefined, data: any): Promise<AxiosPromise> {
+    try {
+        return await axiosClient().put(`/books/${id}`, data)
+    } catch (error: any) {
+        return error;
+    }
+}
