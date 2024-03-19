@@ -219,3 +219,98 @@ class TopRatedBooks(MethodView):
 
         except Exception as e:
             return make_response(error=str(e), status=500)
+
+
+@blp.route("/api/books/all", methods=['GET'])
+class AllBooks(MethodView):
+    def get(self):
+        try:
+            # Pagination parameters
+            page = request.args.get('page', 1, type=int)
+            per_page = request.args.get('per_page', 10, type=int)
+
+            # Query all books from the database
+            all_books = BookModel.query.paginate(page=page, per_page=per_page, error_out=False)
+
+            # Serialize the books
+            serialized_books = [create_book_dict(book) for book in all_books.items]
+
+            # Prepare pagination metadata
+            pagination = {
+                "total_books": all_books.total,
+                "total_pages": all_books.pages,
+                "current_page": all_books.page,
+                "per_page": all_books.per_page,
+                "has_next": all_books.has_next,
+                "has_prev": all_books.has_prev
+            }
+
+            # Return the serialized books with pagination metadata
+            return make_response(data={"books": serialized_books, "pagination": pagination})
+
+        except Exception as e:
+            return make_response(error=str(e), status=500)
+
+
+@blp.route("/api/books/<int:book_id>", methods=['GET', 'PUT', 'DELETE'])
+class SingleBookByTitle(MethodView):
+    def get(self, book_id):
+        try:
+            # Query the book by its title
+            book = BookModel.query.filter_by(id=book_id).first()
+
+            # If the book doesn't exist, return an error
+            if not book:
+                return make_response(error="Book not found", status=404)
+
+            # Serialize the book
+            serialized_book = create_book_dict(book)
+
+            # Return the serialized book
+            return make_response(data={"book": serialized_book})
+
+        except Exception as e:
+            return make_response(error=str(e), status=500)
+
+    def put(self, book_id):
+        try:
+            book = BookModel.query.filter_by(id=book_id).first()
+            if not book:
+                return make_response(error="Book not found", status=404)
+
+            data = request.get_json()
+            if not data:
+                return make_response(error="No data provided for update", status=400)
+
+            # Update only the fields that are provided in the request
+            for key, value in data.items():
+                setattr(book, key, value)
+
+            db.session.commit()
+
+            updated_book = BookModel.query.filter_by(id=book_id).first()  # Use book_title here
+            serialized_book = BookSchema().dump(updated_book)
+
+            return make_response(data={"updated_book": serialized_book})
+
+        except Exception as e:
+            return make_response(error=str(e), status=500)
+
+    def delete(self, book_id):
+        try:
+            # Query the book by its title
+            book = BookModel.query.filter_by(id=book_id).first()
+
+            # If the book doesn't exist, return an error
+            if not book:
+                return make_response(error="Book not found", status=404)
+
+            # Delete the book from the database
+            db.session.delete(book)
+            db.session.commit()
+
+            # Return success message
+            return make_response(data={"message": "Book deleted successfully"})
+
+        except Exception as e:
+            return make_response(error=str(e), status=500)
