@@ -53,3 +53,28 @@
 .loading-lg {
     width: 2.5rem /* 40px */;
 }
+
+.dev-banner {
+    display: none;
+}
+
+.cl-internal-b3fm6y {
+    display: none;
+}
+
+.cl-internal-1niv11v {
+    display: none;
+}
+
+.cl-formButtonPrimary {
+    background-color: #D7A079;
+
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.nextjs-toast-errors-parent {
+    display: none;
+}
