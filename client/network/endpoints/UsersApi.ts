@@ -1,5 +1,4 @@
 import {axiosClient} from "../apiClient";
-import {headers} from "next/headers";
 
 type registerUser = {
     username: string;
