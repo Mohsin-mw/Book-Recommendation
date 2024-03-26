@@ -1,8 +1,3 @@
-import os
-
-# ADD VALIDATION
-
-
 from flask import Flask
 from flask_smorest import Api
 from database.db import db
@@ -32,7 +27,7 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
     # Configure Database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/bookRecommendation'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://masterUsername:JohnCena2023&@tmulbdb.cjikgyue6il0.eu-west-3.rds.amazonaws.com:5432/TMUL_DB'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)

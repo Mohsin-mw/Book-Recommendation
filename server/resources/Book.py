@@ -1,11 +1,13 @@
+from datetime import datetime
 from math import ceil
 
 from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from models.book_model import BookModel
+from models.book_requests_model import BookRequestsModel
 from database.db import db
-from schema.schemas import BookSchema
+from schema.schemas import BookSchema, RequestSchema
 import pickle
 
 # Importing trained Model
@@ -204,6 +206,7 @@ class BooksByGenre(MethodView):
         except Exception as e:
             return make_response(error=str(e), status=500)
 
+
 @blp.route("/api/books/top-rated", methods=['GET'])
 class TopRatedBooks(MethodView):
     def get(self):
@@ -312,5 +315,25 @@ class SingleBookByTitle(MethodView):
             # Return success message
             return make_response(data={"message": "Book deleted successfully"})
 
+        except Exception as e:
+            return make_response(error=str(e), status=500)
+
+
+request_schema = RequestSchema()
+
+
+@blp.route("/api/requests")
+class Requests(MethodView):
+    def post(self):
+        try:
+            data = request.get_json()
+            if not data:
+                return make_response(error="No data", status=400)
+            current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:00')
+            new_request = BookRequestsModel(title=data["title"], isbn=data["isbn"], timestamp=current_timestamp)
+            db.session.add(new_request)
+            db.session.commit()
+            serialized_request = request_schema.dump(new_request)
+            return make_response(data={"request": serialized_request}, status=200)
         except Exception as e:
             return make_response(error=str(e), status=500)

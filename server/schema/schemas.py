@@ -30,3 +30,9 @@ class CommentSchema(Schema):
     user_name = fields.Str(required=True, validate=validate.Length(max=255))
     comment_text = fields.Str(required=True)
     timestamp = fields.DateTime(dump_only=True)
+
+
+class RequestSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    title = fields.Str(required=True)
+    isbn = fields.Str(required=True)
