@@ -93,7 +93,7 @@ export const InfiniteMovingBooks = ({
                         key={book.id}
                     >
                         <div>
-                            <h3 className="font-bold text-lg line-clamp-2">{book.title}</h3>
+                            <h3 className="font-bold text-gray-900 text-lg line-clamp-2">{book.title}</h3>
                             <p className="text-gray-500">{book.author}</p>
                         </div>
                         <blockquote className="pt-2">

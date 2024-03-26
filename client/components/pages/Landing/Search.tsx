@@ -7,10 +7,11 @@ import {BiSearch} from "react-icons/bi";
 import {Button} from "@/components/ui/button";
 import {queryInterface} from "@/types/types";
 import {QueryBooks} from "@/network/endpoints/BooksApi";
+import RequestBook from "@/components/pages/Landing/RequestBook";
 
 const Search = () => {
     const [query, setQuery] = useState('');
-
+    const [open, setOpen] = useState(false)
 
     const [suggestions, setSuggestions] = useState<queryInterface>();
     const handleChange = async (event: { target: { value: string; }; }) => {
@@ -20,7 +21,6 @@ const Search = () => {
             const response = await QueryBooks(newQuery);
             setSuggestions(response.data);
         } catch (error) {
-            console.error('Error fetching suggestions:', error);
         }
         if (newQuery == "") {
             setSuggestions(undefined)
@@ -39,7 +39,7 @@ const Search = () => {
                         <Input
                             type="email"
                             placeholder="Find your favorite book here..."
-                            className="w-full lg:w-96 border-2 text-[14px]   rounded-full bg-gray-50 py-6 font-medium text-gray-900  placeholder:text-gray-400 focus:ring-primary active:ring-primary focus-visible:ring-primary ring-1 ring-primary"
+                            className="w-full lg:w-96 border-2 text-[14px]   rounded-full bg-gray-50 py-6 font-medium text-gray-900  placeholder:text-gray-400 focus:ring-primary active:ring-primary focus-visible:ring-primary ring-1 ring-primary no-focus"
                             value={query}
                             onChange={handleChange}
                         />
@@ -56,21 +56,27 @@ const Search = () => {
                 {
                     suggestions?.books ? (
                         <div
-                            className="absolute w-full bg-white rounded-md shadow-light100 top-[110%] flex-column-start px-4">
-                            {
-                                suggestions.books.map((book, i) => (
-                                    <Link
-                                        key={i}
-                                        className="py-2 border-b-2 hover:border-b-primary duration-200 hover:text-[17px] w-full group"
-                                        href={`/book/${encodeURIComponent(book.title)}`}>{book.title}<span
-                                        className="text-quaternary text-sm opacity-0 group-hover:opacity-100 duration-200"> ~ Author: {book.author}</span></Link>
-                                ))
-                            }
-
+                            className="absolute w-full bg-white rounded-md shadow-light100 top-[110%] overflow-hidden ">
+                            <div className={"px-4 flex-column-start"}>
+                                {
+                                    suggestions.books.map((book, i) => (
+                                        <Link
+                                            key={i}
+                                            className="py-2 border-b-2 hover:border-b-primary duration-200 text-[14px] hover:text-[15px] w-full group text-gray-900"
+                                            href={`/book/${encodeURIComponent(book.title)}`}>{book.title}<span
+                                            className="text-quaternary text-sm opacity-0 group-hover:opacity-100 duration-200"> ~ Author: {book.author}</span></Link>
+                                    ))
+                                }
+                            </div>
+                            <div
+                                onClick={() => setOpen(!open)}
+                                className={"py-2 px-4 cursor-pointer border-b-2 hover:border-b-primary duration-200 text-white bg-primary text-[14px] hover:text-[15px] w-full"}>Request
+                                New Book
+                            </div>
                         </div>
                     ) : ""
                 }
-
+                <RequestBook open={open} setOpen={setOpen}/>
             </div>
         </>
     )

@@ -63,3 +63,9 @@ export async function getCommentsByBook(bookId: number): Promise<AxiosPromise> {
     return await axiosClient().get(`/comments/book/${bookId}`);
 }
 
+export async function requestNewBook(bookTitle: string, bookISBN: string): Promise<AxiosPromise> {
+    return await axiosClient().post('/requests', {
+        title: bookTitle,
+        isbn: bookISBN
+    })
+}

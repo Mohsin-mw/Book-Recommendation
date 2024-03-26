@@ -19,7 +19,7 @@ const Navbar = async () => {
                         />
                     </Link>
                     <div className=" hidden md:flex-row-start w-full py-2">
-                        <div className="flex-row-between gap-x-4 py-4">
+                        <div className="flex-row-between gap-x-4 py-4 text-gray-900">
                             <Link href={"/genre/Romance"} className="body-medium">
                                 Romance
                             </Link>

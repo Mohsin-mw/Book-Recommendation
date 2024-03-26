@@ -13,7 +13,7 @@ const Scroller = (): React.JSX.Element => {
 
     return (
         <span
-            className={" flex-column-center fixed bottom-8 right-12 inline-block h-[40px] w-[40px] cursor-pointer rounded-full bg-primary text-white"}
+            className={" flex-column-center fixed bottom-8 right-12 inline-block h-[40px] w-[40px] cursor-pointer rounded-full bg-primary text-white z-50"}
             onClick={scrollToTop}>
         <div className={"flex-column-center relative"}>
             <ChevronUp size={"24"} className={"z-10"}/>

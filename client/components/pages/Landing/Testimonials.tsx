@@ -15,62 +15,54 @@ export function Testimonials() {
 
 const testimonials = [
     {
-        quote:
-            "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-        name: "Charles Dickens",
-        title: "A Tale of Two Cities",
+        "quote": "In the best and worst of times, wisdom and foolishness intertwine. Belief clashes with incredulity, Light battles Darkness, hope struggles against despair.",
+        "name": "Charles Dickens",
+        "title": "A Tale of Two Cities"
     },
     {
-        quote:
-            "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-        name: "William Shakespeare",
-        title: "Hamlet",
+        "quote": "To exist or not, pondering the question: Is it nobler to endure life's trials or to fight against them and end them? To die, to rest.",
+        "name": "William Shakespeare",
+        "title": "Hamlet"
     },
     {
-        quote: "All that we see or seem is but a dream within a dream.",
-        name: "Edgar Allan Poe",
-        title: "A Dream Within a Dream",
+        "quote": "All that we perceive or imagine is but a fragment of a dream within a dream.",
+        "name": "Edgar Allan Poe",
+        "title": "A Dream Within a Dream"
     },
     {
-        quote:
-            "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-        name: "Jane Austen",
-        title: "Pride and Prejudice",
+        "quote": "It is commonly acknowledged that a wealthy man must seek a spouse.",
+        "name": "Jane Austen",
+        "title": "Pride and Prejudice"
     },
     {
-        quote:
-            "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-        name: "Herman Melville",
-        title: "Moby-Dick",
+        "quote": "Address me as Ishmael. Some time back, without much money and nothing to hold me ashore, I set sail to explore the seas.",
+        "name": "Herman Melville",
+        "title": "Moby-Dick"
     },
     {
-        quote:
-            "There is no greater agony than bearing an untold story inside you.",
-        name: "Maya Angelou",
-        title: "I Know Why the Caged Bird Sings",
+        "quote": "There's no greater pain than harboring an unspoken tale within.",
+        "name": "Maya Angelou",
+        "title": "I Know Why the Caged Bird Sings"
     },
     {
-        quote:
-            "All human wisdom is contained in these two words - Wait and Hope.",
-        name: "Alexandre Dumas",
-        title: "The Count of Monte Cristo",
+        "quote": "Patience and optimism encapsulate human wisdom.",
+        "name": "Alexandre Dumas",
+        "title": "The Count of Monte Cristo"
     },
     {
-        quote:
-            "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
-        name: "Steve Jobs",
-        title: "Steve Jobs: The Exclusive Biography",
+        "quote": "Passion for your work is the key to excellence. Keep searching if you haven't found it yet. Never settle.",
+        "name": "Steve Jobs",
+        "title": "Steve Jobs: The Exclusive Biography"
     },
     {
-        quote:
-            "To live is the rarest thing in the world. Most people exist, that is all.",
-        name: "Oscar Wilde",
-        title: "The Soul of Man under Socialism",
+        "quote": "Living is a rare phenomenon. Most merely endure, nothing more.",
+        "name": "Oscar Wilde",
+        "title": "The Soul of Man under Socialism"
     },
     {
-        quote:
-            "Books are the mirrors of the soul.",
-        name: "Virginia Woolf",
-        title: "Between the Acts",
-    },
+        "quote": "Books reflect the depths of the soul.",
+        "name": "Virginia Woolf",
+        "title": "Between the Acts"
+    }
 ];
+
