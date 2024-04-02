@@ -10,7 +10,7 @@ import time
 import random
 import os
 
-# 3
+# https://www.lireka.com/fr/pc/livre-developpement-personnel?page=3
 
 # User-Agent header
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0'}
