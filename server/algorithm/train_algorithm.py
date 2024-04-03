@@ -6,6 +6,7 @@ from random import sample
 
 movies = pd.read_csv('../dataset/french_books_data.csv')
 
+
 movies['tags'] = movies['Title'] + ' ' + movies['Description'] + ' ' + movies['Author'] + ' ' + movies['Publication'] + ' ' + movies['ISBN'].to_string() + ' ' + movies['Pages'].to_string() + ' ' + movies['Image'].apply(
     lambda x: ' '.join(x))
 new_data = movies
@@ -49,16 +50,16 @@ def recommend(movies, num_recommendations=10):
     return recommendations
 
 #
-# book_title = "L'art subtil de s'en foutre"
-# recommendations = recommend(book_title, num_recommendations=30)
-# for book_info in recommendations:
-#     print("Title:", book_info['Title'])
-#     print("Author:", book_info['Author'])
-#     print("Description:", book_info['Description'])
-#     print("Pages:", book_info['Pages'])
-#     print("ISBN:", book_info['ISBN'])
-#     print("Image:", book_info['Image'])
-#     print("++++++++++++++++++++++++")
+book_title = "L'art subtil de s'en foutre"
+recommendations = recommend(book_title, num_recommendations=30)
+for book_info in recommendations:
+    print("Title:", book_info['Title'])
+    print("Author:", book_info['Author'])
+    print("Description:", book_info['Description'])
+    print("Pages:", book_info['Pages'])
+    print("ISBN:", book_info['ISBN'])
+    print("Image:", book_info['Image'])
+    print("++++++++++++++++++++++++")
 
-pickle.dump(similarity, open('similarity.pkl', 'wb'))
-pickle.dump(new_data, open('movies_list.pkl', 'wb'))
+# pickle.dump(similarity, open('similarity.pkl', 'wb'))
+# pickle.dump(new_data, open('movies_list.pkl', 'wb'))

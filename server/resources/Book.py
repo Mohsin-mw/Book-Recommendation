@@ -25,10 +25,10 @@ def recommend(title, num_recommendations=10):
         recommendations.append({
             'Title': book_info.Title,
             'Author': book_info.Author,
-            'Rating': book_info.Rating,
             'Description': book_info.Description,
-            'Genres': book_info.Genres,
-            'Image': book_info.Image
+            'Pages': book_info.Pages,
+            'ISBN': book_info.ISBN,
+            'Image': book_info.Image,
         })
     return recommendations
 
@@ -56,12 +56,12 @@ def format_genres(genres):
 def create_book_dict(book):
     return {
         "id": book.id,
-        "image": book.image,
         "title": book.title,
         "author": book.author,
-        "rating": book.rating,
         "description": book.description,
-        "genres": format_genres(book.genres)
+        "pages": book.pages,
+        "isbn": book.isbn,
+        "image": book.image,
     }
 
 
@@ -85,7 +85,6 @@ class Book(MethodView):
                 if not book:
                     return make_response(error="Book not found", status=404)
                 serialized_book = BookSchema().dump(book)
-                serialized_book["genres"] = format_genres(book.genres)
                 return make_response(data={"book": serialized_book}, status=200)
             else:
                 books = BookModel.query.limit(7).all()
