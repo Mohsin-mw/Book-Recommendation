@@ -1,11 +1,11 @@
 export interface bookInterface {
+    id: number
     title: string,
     author: string,
     image: string,
     description: string,
-    genres: string[],
-    rating: number,
-    id: number
+    isbn: string,
+    pages: string
 }
 
 export interface queryInterface {

@@ -5,7 +5,7 @@ import {InfiniteMovingBooks} from "@/components/ui/infinite-moviing-books";
 
 const TopRatedBooks = async () => {
     const response = await GetTopRatedBooks();
-    const {top_rated_books}: { top_rated_books: bookInterface[] } = response.data;
+    const top_rated_books: bookInterface[] = response.data.books;
     return (<div>
         <div
             className="h-[20rem] rounded-md flex flex-col antialiased bg-primary bg-opacity-5 dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
