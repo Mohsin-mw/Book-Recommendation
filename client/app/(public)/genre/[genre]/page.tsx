@@ -66,7 +66,7 @@ const Page = ({params}: { params: { genre: string } }) => {
             <div className="bg-primary">
                 <div className="container text-white font-medium py-4">
                     <span className="flex-row-start gap-x-2">
-                    We have {booksSet?.pagination.total_books} books in this genre <IconBook/>
+                    Nous avons {booksSet?.pagination.total_books} livres pour ce genre <IconBook/>
                     </span>
                 </div>
             </div>

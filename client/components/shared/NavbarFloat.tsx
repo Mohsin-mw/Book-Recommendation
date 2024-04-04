@@ -6,12 +6,12 @@ import {IconHome, IconMessage, IconUser} from "@tabler/icons-react";
 export function NavbarFloating() {
     const navItems = [
         {
-            name: "Home",
+            name: "Accueil",
             link: "/",
             icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },
         {
-            name: "Search",
+            name: "Recherche",
             link: "#searchSection",
             icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white"/>,
         },

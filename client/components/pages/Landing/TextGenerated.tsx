@@ -1,5 +1,5 @@
 "use client";
-const words = `"Books are like magical portals, opening worlds of wonder and wisdom, where the soul finds solace and the mind discovers its wings"`;
+const words = `"Les livres sont comme des portails magiques, ouvrant des mondes de merveille et de sagesse, où l'âme trouve réconfort et l'esprit découvre ses ailes"`;
 
 export function HeroText() {
     return (

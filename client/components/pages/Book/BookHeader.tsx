@@ -28,7 +28,7 @@ const BookHeader = ({book, userId}: { book: bookInterface, userId?: string | nul
             <h2 className="text-[50px] font-medium">{book.title}</h2>
             {
                 userId ?
-                    <Button onClick={handleBookClick}>Add to Favorites</Button>
+                    <Button onClick={handleBookClick}>Ajouter aux favoris</Button>
                     : ""
             }
         </div>

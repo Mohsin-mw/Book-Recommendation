@@ -114,7 +114,7 @@ export const InfiniteMovingBooks = ({
                         </blockquote>
                         <div>
                             <Link href={`/book/${encodeURIComponent(book.title)}`}>
-                                <Button>Learn More</Button>
+                                <Button>En savoir plus</Button>
                             </Link>
 
                         </div>

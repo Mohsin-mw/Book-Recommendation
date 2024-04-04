@@ -15,7 +15,7 @@ const Footer = () => {
                             width={50}
                             height={50}
                         />
-                        <h2 className="hidden md:inline-block font-bold">Made with Love in France</h2>
+                        <h2 className="hidden md:inline-block font-bold">Fait avec amour en France</h2>
                     </div>
                     <h2>2024 @Trouve Moi Un livre all right reserved</h2>
                 </div>
