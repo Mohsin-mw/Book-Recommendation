@@ -97,33 +97,33 @@ class Book(MethodView):
         except Exception as e:
             return make_response(error=str(e), status=500)
 
-    @blp.arguments(BookSchema)
-    def post(self, *args, **kwargs):
-        try:
-            data = request.get_json()
-            required_fields = ["image", "title", "author", "rating", "description", "genres"]
-            if not all(field in data for field in required_fields):
-                return make_response(error="Missing required fields", status=400)
-
-            new_book = BookModel(
-                image=data["image"],
-                title=data["title"],
-                author=data["author"],
-                rating=data["rating"],
-                description=data["description"],
-                genres=", ".join(data["genres"])
-            )
-
-            db.session.add(new_book)
-            db.session.commit()
-
-            book_dict = create_book_dict(new_book)
-            serialized_book = BookSchema().dump(book_dict)
-
-            return make_response(data={"book": serialized_book})
-
-        except Exception as e:
-            return make_response(error=str(e), status=500)
+    # @blp.arguments(BookSchema)
+    # def post(self, *args, **kwargs):
+    #     try:
+    #         data = request.get_json()
+    #         required_fields = ["image", "title", "author", "rating", "description", "genres"]
+    #         if not all(field in data for field in required_fields):
+    #             return make_response(error="Missing required fields", status=400)
+    #
+    #         new_book = BookModel(
+    #             image=data["image"],
+    #             title=data["title"],
+    #             author=data["author"],
+    #             rating=data["rating"],
+    #             description=data["description"],
+    #             genres=", ".join(data["genres"])
+    #         )
+    #
+    #         db.session.add(new_book)
+    #         db.session.commit()
+    #
+    #         book_dict = create_book_dict(new_book)
+    #         serialized_book = BookSchema().dump(book_dict)
+    #
+    #         return make_response(data={"book": serialized_book})
+    #
+    #     except Exception as e:
+    #         return make_response(error=str(e), status=500)
 
 
 @blp.route("/books/<string:bookTitle>")
@@ -149,8 +149,11 @@ class Recommendations(MethodView):
         try:
             data = request.get_json()
             recommended_books = recommend(data['title'], num_recommendations=30)
-            lowercase_books = lowercase_keys(recommended_books)
 
+            for book in recommended_books:
+                book['ISBN'] = str(book['ISBN'])
+
+            lowercase_books = lowercase_keys(recommended_books)
             # Pagination parameters
             page = request.args.get('page', 1, type=int)
             per_page = request.args.get('per_page', 10, type=int)

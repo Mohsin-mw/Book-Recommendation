@@ -7,8 +7,8 @@ from random import sample
 movies = pd.read_csv('../dataset/french_books_data.csv')
 
 
-movies['tags'] = movies['Title'] + ' ' + movies['Description'] + ' ' + movies['Author'] + ' ' + movies['Publication'] + ' ' + movies['ISBN'].to_string() + ' ' + movies['Pages'].to_string() + ' ' + movies['Image'].apply(
-    lambda x: ' '.join(x))
+movies['tags'] = movies['Title'] + ' ' + movies['Description'] + ' ' + movies['Author'] + ' ' + movies['Publication'].astype(str) + ' ' + movies['ISBN'].astype(str) + ' ' + movies['Pages'].astype(str) + ' ' + movies['Image'].apply(lambda x: ' '.join(x))
+
 new_data = movies
 cv = CountVectorizer(max_features=1039, stop_words='english')
 vector = cv.fit_transform(new_data['tags'].values.astype('U')).toarray()
@@ -28,7 +28,7 @@ def recommend(movies, num_recommendations=10):
                 'Description': book_info.Description,
                 'Author': book_info.Author,
                 'Publication': book_info.Publication,
-                'ISBN': book_info.ISBN,
+                'ISBN': str(book_info.ISBN),
                 'Pages': book_info.Pages,
                 'Image': book_info.Image
             })
@@ -43,23 +43,13 @@ def recommend(movies, num_recommendations=10):
                 'Description': book_info.Description,
                 'Author': book_info.Author,
                 'Publication': book_info.Publication,
-                'ISBN': book_info.ISBN,
+                'ISBN': str(book_info.ISBN),
                 'Pages': book_info.Pages,
                 'Image': book_info.Image
             })
     return recommendations
 
-#
-book_title = "L'art subtil de s'en foutre"
-recommendations = recommend(book_title, num_recommendations=30)
-for book_info in recommendations:
-    print("Title:", book_info['Title'])
-    print("Author:", book_info['Author'])
-    print("Description:", book_info['Description'])
-    print("Pages:", book_info['Pages'])
-    print("ISBN:", book_info['ISBN'])
-    print("Image:", book_info['Image'])
-    print("++++++++++++++++++++++++")
 
-# pickle.dump(similarity, open('similarity.pkl', 'wb'))
-# pickle.dump(new_data, open('movies_list.pkl', 'wb'))
+
+pickle.dump(similarity, open('similarity.pkl', 'wb'))
+pickle.dump(new_data, open('movies_list.pkl', 'wb'))
