@@ -223,7 +223,7 @@ class TopRatedBooks(MethodView):
             serialized_books = [create_book_dict(book) for book in random_books]
 
             # Return the serialized random books
-            return make_response(data={"random_books": serialized_books})
+            return make_response(data={"books": serialized_books})
 
         except Exception as e:
             return make_response(error=str(e), status=500)
