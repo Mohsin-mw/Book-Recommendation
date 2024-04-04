@@ -1,5 +1,6 @@
 from datetime import datetime
 from math import ceil
+from random import sample
 
 from flask import request, jsonify
 from flask.views import MethodView
@@ -126,16 +127,15 @@ class Book(MethodView):
     #         return make_response(error=str(e), status=500)
 
 
-@blp.route("/books/<string:bookTitle>")
+@blp.route("/api/booksbyid/<string:bookISBN>")
 class BooksById(MethodView):
-    def get(self, bookTitle):
+    def get(self, bookISBN):
         try:
-            book = BookModel.query.filter_by(title=bookTitle).first()
+            book = BookModel.query.filter_by(isbn=bookISBN).first()
             if not book:
                 return make_response(error="Book not found", status=404)
 
             serialized_book = BookSchema().dump(book)
-            serialized_book["genres"] = format_genres(book.genres)
 
             return make_response(data={"book": serialized_book})
 
@@ -213,18 +213,20 @@ class BooksByGenre(MethodView):
 class TopRatedBooks(MethodView):
     def get(self):
         try:
-            # Get the top 10 rated books from the database
-            top_rated_books = BookModel.query.order_by(BookModel.rating.desc()).limit(10).all()
+            # Get all books from the database
+            all_books = BookModel.query.all()
 
-            # Serialize the top rated books
-            serialized_books = [create_book_dict(book) for book in top_rated_books]
+            # Select 10 random books
+            random_books = sample(all_books, 10)
 
-            # Return the serialized top rated books
-            return make_response(data={"top_rated_books": serialized_books})
+            # Serialize the random books
+            serialized_books = [create_book_dict(book) for book in random_books]
+
+            # Return the serialized random books
+            return make_response(data={"random_books": serialized_books})
 
         except Exception as e:
             return make_response(error=str(e), status=500)
-
 
 @blp.route("/api/books/all", methods=['GET'])
 class AllBooks(MethodView):
