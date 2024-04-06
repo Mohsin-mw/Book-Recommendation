@@ -34,14 +34,14 @@ const FavoriteBooksGrid = ({favorites, clerkId}: { favorites: bookInterface[], c
                                    alt={book.title}/>
                             <span className="block h-[3px] bg-slate-200"></span>
                             <h2 className="text-base line-clamp-2 font-medium pt-4 px-2">{book.title}</h2>
-                            <p className="text-quaternary italic px-2 pb-1">Author ~ <span
+                            <p className="text-quaternary italic px-2 pb-1">Auteur ~ <span
                                 className="not-italic">{book.author}</span>
                             </p>
                             <Link href={`/book/${encodeURIComponent(book.title)}`}>
-                                <Button className="my-2 mx-2">Learn More</Button>
+                                <Button className="my-2 mx-2">En Savoir Plus</Button>
                             </Link>
                             <Button onClick={() => handleBookRemove(book.id)}
-                                    className="my-2 mx-2 bg-secondary text-primary">Remove</Button>
+                                    className="my-2 mx-2 bg-secondary text-primary">Supprimer</Button>
                         </div>
                     ))
                 }

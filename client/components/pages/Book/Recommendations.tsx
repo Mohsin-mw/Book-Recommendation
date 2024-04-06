@@ -56,7 +56,7 @@ const Recommendations = ({title}: { title: string }) => {
 
     if (isLoading) return <Loading/>;
 
-    if (error) return <p>Error: {error}</p>;
+    if (error) return <p>Erreur: {error}</p>;
 
     return (
         <>

@@ -8,7 +8,6 @@ import TopRatedBooks from "@/components/pages/Landing/TopRatedBooks";
 import Blogs from "@/components/pages/Landing/Blogs";
 
 const Page = async () => {
-
     return (
         <>
             <Hero/>
@@ -19,8 +18,7 @@ const Page = async () => {
             <FAQ/>
             <Blogs/>
         </>
-    )
-}
+    );
+};
 
 export default Page;
-

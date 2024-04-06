@@ -66,7 +66,7 @@ export function UserCommentSection({book_id, user_id, user_name}: {
                     name="userComment"
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel>Share your thoughts!</FormLabel>
+                            <FormLabel>Partagez ce que vous avez sur le coeur!</FormLabel>
                             <FormControl>
                                 <Input placeholder="I really like this book" {...field} />
                             </FormControl>
@@ -74,7 +74,7 @@ export function UserCommentSection({book_id, user_id, user_name}: {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Partager</Button>
             </form>
         </Form>
     )
