@@ -5,7 +5,8 @@ export interface bookInterface {
     image: string,
     description: string,
     isbn: string,
-    pages: string
+    pages: string,
+    publication: string
 }
 
 export interface queryInterface {

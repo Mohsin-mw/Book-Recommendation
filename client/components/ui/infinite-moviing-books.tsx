@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {bookInterface} from "@/types/types";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image"
 
 export const InfiniteMovingBooks = ({
                                         books,
@@ -92,9 +93,13 @@ export const InfiniteMovingBooks = ({
 
                         key={book.id}
                     >
-                        <div>
-                            <h3 className="font-bold text-gray-900 text-lg line-clamp-2">{book.title}</h3>
-                            <p className="text-gray-500">{book.author}</p>
+                        <div className={"flex-row-start gap-x-4"}>
+                            <Image className={"rounded-md shadow-md"} src={book.image} width={70} height={70}
+                                   alt={book.title}/>
+                            <div>
+                                <h3 className="font-bold text-gray-900 text-lg line-clamp-2">{book.title}</h3>
+                                <p className="text-gray-500">{book.author}</p>
+                            </div>
                         </div>
                         <blockquote className="pt-2">
                             <div

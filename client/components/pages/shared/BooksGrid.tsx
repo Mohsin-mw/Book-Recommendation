@@ -7,7 +7,7 @@ import {bookInterface} from "@/types/types";
 const BooksGrid = ({books, gridSize, url}: { books: bookInterface[], url?: "admin" | "public", gridSize?: number }) => {
     return (
         <div
-            className={`container py-8 grid grid-cols-1 md:grid-cols-3 ${gridSize ? `lg:grid-cols-${gridSize}` : "lg:grid-cols-5"} gap-x-4 gap-y-8`}>
+            className={`container py-8 grid grid-cols-1 md:grid-cols-3 ${gridSize ? `lg:grid-cols-${gridSize}` : "lg:grid-cols-4"} gap-x-4 gap-y-8`}>
             {
                 books.map((book, index) => (
                     <Link

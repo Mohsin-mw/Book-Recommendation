@@ -16,7 +16,7 @@ const Page = async ({params}: { params: { book: string } }) => {
 
     return (
         <div>
-            <div className=" bg-primary bg-opacity-10">
+            <div className="text-black bg-primary bg-opacity-10">
                 <div className="container flex flex-col lg:flex-row items-start justify-start gap-x-4 ">
                     <div className="py-4">
                         <Image
@@ -29,19 +29,22 @@ const Page = async ({params}: { params: { book: string } }) => {
                     </div>
                     <div className="w-full flex-column-start">
                         <BookHeader book={book} userId={userId}/>
-                        <p className="text-quaternary italic">Author ~ <span className="not-italic">{book.author}</span>
-                        </p>
-                        <div className=" hidden md:grid lg:grid-cols-5  gap-y-4 gap-x-4 py-4">
-                            {
-                                book.genres.map((genre, index) => (
-                                    <Link
-                                        href={`/genre/${genre}`}
-                                        className="bg-secondary rounded-full text-tertiary hover:bg-primary hover:text-white cursor-pointer duration-300 text-sm py-1 px-4"
-                                        key={index}>{genre}</Link>
-                                ))
-                            }
+                        <span className={"w-full bg-gray-300 h-[2px]"}/>
+                        <div className={"grid grid-cols-2 py-4"}>
+                            <p className="text-quaternary italic">Author ~ <span
+                                className="not-italic">{book.author}</span>
+                            </p>
+                            <p className="text-quaternary italic">ISBN ~ <span className="not-italic">{book.isbn}</span>
+                            </p>
+                            <p className="text-quaternary italic">Pages ~ <span
+                                className="not-italic">{book.pages}</span>
+                            </p>
+                            <p className="text-quaternary italic">Publication Date ~ <span
+                                className="not-italic">{book.publication}</span>
+                            </p>
                         </div>
-                        <p className="font-light">{book.description}</p>
+                        <span className={"w-full bg-gray-300 h-[2px]"}/>
+                        <p className="font-light py-4">{book.description}</p>
                     </div>
                 </div>
             </div>

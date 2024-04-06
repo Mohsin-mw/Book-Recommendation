@@ -20,8 +20,8 @@ export async function QueryBooks(query: string): Promise<AxiosPromise> {
     return await axiosClient().get(`/books?query=${query}`).then(res => res.data)
 }
 
-export async function GetBook(title: string): Promise<AxiosPromise> {
-    return await axiosClient().get(`/books?title=${title}`).then(res => res.data)
+export async function GetBook(isbn: string): Promise<AxiosPromise> {
+    return await axiosClient().get(`/booksbyid/${isbn}`).then(res => res.data)
 }
 
 export async function GetRecommendations(title: string, page: number = 1, perPage: number = 10): Promise<AxiosPromise> {

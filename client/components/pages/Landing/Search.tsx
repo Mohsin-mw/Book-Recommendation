@@ -63,7 +63,7 @@ const Search = () => {
                                         <Link
                                             key={i}
                                             className="py-2 border-b-2 hover:border-b-primary duration-200 text-[14px] hover:text-[15px] w-full group text-gray-900"
-                                            href={`/book/${encodeURIComponent(book.title)}`}>{book.title}<span
+                                            href={`/book/${encodeURIComponent(book.isbn)}`}>{book.title}<span
                                             className="text-quaternary text-sm opacity-0 group-hover:opacity-100 duration-200"> ~ Author: {book.author}</span></Link>
                                     ))
                                 }
