@@ -30,7 +30,7 @@ const Page = async ({params}: { params: { book: string } }) => {
                     <div className="w-full flex-column-start">
                         <BookHeader book={book} userId={userId}/>
                         <span className={"w-full bg-gray-300 h-[2px]"}/>
-                        <div className={"grid grid-cols-2 py-4"}>
+                        <div className={"grid grid-cols-2 gap-x-4 py-4"}>
                             <p className="text-quaternary italic">Author ~ <span
                                 className="not-italic">{book.author}</span>
                             </p>

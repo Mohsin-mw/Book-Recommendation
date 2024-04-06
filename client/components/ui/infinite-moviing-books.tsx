@@ -112,13 +112,11 @@ export const InfiniteMovingBooks = ({
               </span>
                             <div className="relative z-20 mt-6 flex flex-row items-center">
                 <span className="flex flex-col gap-1">
-
-
                 </span>
                             </div>
                         </blockquote>
                         <div>
-                            <Link href={`/book/${encodeURIComponent(book.title)}`}>
+                            <Link href={`/book/${encodeURIComponent(book.isbn)}`}>
                                 <Button>En savoir plus</Button>
                             </Link>
 

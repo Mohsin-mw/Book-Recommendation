@@ -68,7 +68,8 @@ export function UserCommentSection({book_id, user_id, user_name}: {
                         <FormItem>
                             <FormLabel>Partagez ce que vous avez sur le coeur!</FormLabel>
                             <FormControl>
-                                <Input placeholder="I really like this book" {...field} />
+                                <Input className={"placeholder:text-black text-black"}
+                                       placeholder="I really like this book" {...field} />
                             </FormControl>
                             <FormMessage/>
                         </FormItem>

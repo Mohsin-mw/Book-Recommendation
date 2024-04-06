@@ -54,7 +54,7 @@ const Comments = async ({bookId}: { bookId: number }) => {
                                 ~ <span className="text-gray-400">{formatTimestamp(comment.timestamp)}</span>
                             </div>
                             <div>
-                                <p className="py-1">
+                                <p className="py-1 text-black">
                                     {comment.comment_text}
                                 </p>
                             </div>

@@ -22,7 +22,7 @@ const FavoriteBooksGrid = ({favorites, clerkId}: { favorites: bookInterface[], c
 
     return (
         <div className="h-screen">
-            <div className="container py-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-8">
+            <div className="container py-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
                 {
                     favorites.map((book, index) => (
                         <div key={index}
