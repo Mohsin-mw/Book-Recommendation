@@ -13,7 +13,6 @@ const Page = async ({params}: { params: { book: string } }) => {
     const response = await GetBook(params.book);
     const {book, error}: { book: bookInterface, error: AxiosAdapter } = response.data
     const {userId} = auth();
-
     return (
         <div>
             <div className="text-black bg-primary bg-opacity-10">

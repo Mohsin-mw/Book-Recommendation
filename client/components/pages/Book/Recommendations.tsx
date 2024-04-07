@@ -32,7 +32,7 @@ const Recommendations = ({title}: { title: string }) => {
     const [booksSet, setBooksSet] = useState<BooksSet>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
+    console.log(title)
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
@@ -41,6 +41,7 @@ const Recommendations = ({title}: { title: string }) => {
             try {
                 const response = await GetRecommendations(title, currentPage);
                 setBooksSet(response.data);
+                console.log(response.data)
             } catch (error: any) {
                 setError(error.message);
             } finally {

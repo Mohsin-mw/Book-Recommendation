@@ -11,7 +11,7 @@ const BooksGrid = ({books, gridSize, url}: { books: bookInterface[], url?: "admi
             {
                 books.map((book, index) => (
                     <Link
-                        href={url == "admin" ? `/admin-books/${encodeURIComponent(book.title)}` : `/book/${encodeURIComponent(book.title)}`}
+                        href={url == "admin" ? `/admin-books/${encodeURIComponent(book.isbn)}` : `/book/${encodeURIComponent(book.isbn)}`}
                         key={index}
                         className="bg-white rounded-md shadow-lg flex-column-start hover:scale-105 duration-200">
                         <Image className="object-cover w-full md:h-96  rounded-md overflow-hidden"

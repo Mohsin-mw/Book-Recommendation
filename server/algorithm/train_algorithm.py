@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 from random import sample
 
-movies = pd.read_csv('../dataset/french_books_data.csv')
+movies = pd.read_csv('../dataset/french_books.csv')
 
 
 movies['tags'] = movies['Title'] + ' ' + movies['Description'] + ' ' + movies['Author'] + ' ' + movies['Publication'].astype(str) + ' ' + movies['ISBN'].astype(str) + ' ' + movies['Pages'].astype(str) + ' ' + movies['Image'].apply(lambda x: ' '.join(x))
