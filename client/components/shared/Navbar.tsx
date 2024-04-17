@@ -24,6 +24,9 @@ const Navbar = async () => {
           {/*<Link href={"/about"} className="hidden md:inline body-medium">About</Link>*/}
                     {userId ? (
                         <>
+                            <Link href={"/wish-list"} className="body-medium">
+                                Wish List
+                            </Link>
                             <Link href={"/favorite"} className="body-medium">
                                 Favoris
                             </Link>

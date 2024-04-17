@@ -20,6 +20,13 @@ export async function AddUserFavoriteBook(id: string, bookId: number) {
     });
 }
 
+export async function AddBookToWishList(id: string, bookId: number) {
+    return await axiosClient().post("/wishList", {
+        "clerk_id": id,
+        "book_id": bookId
+    });
+}
+
 export async function GetUserFavoriteBooks(id: string | null) {
     return await axiosClient().post("/favoritesList", {
         "clerk_id": id,
@@ -29,6 +36,18 @@ export async function GetUserFavoriteBooks(id: string | null) {
         }
     });
 }
+
+
+export async function GetUserWishList(id: string | null) {
+    return await axiosClient().post("/userWishList", {
+        "clerk_id": id,
+    }, {
+        headers: {
+            'Cache-Control': "no-cache, no-store, must-revalidate"
+        }
+    });
+}
+
 
 export async function RemoveFavoriteBooks(clerkId: string | null, bookId: number) {
     return await axiosClient().delete("/favoritesList", {

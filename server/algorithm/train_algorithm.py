@@ -51,5 +51,5 @@ def recommend(movies, num_recommendations=10):
 
 
 
-pickle.dump(similarity, open('similarity.pkl', 'wb'))
-pickle.dump(new_data, open('movies_list.pkl', 'wb'))
+pickle.dump(similarity, open('../../../Book-Recommendation-Backend/models/similarity.pkl', 'wb'))
+pickle.dump(new_data, open('../../../Book-Recommendation-Backend/models/movies_list.pkl', 'wb'))

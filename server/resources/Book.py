@@ -1,7 +1,6 @@
 from datetime import datetime
 from math import ceil
 from random import sample
-
 from flask import request, jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint

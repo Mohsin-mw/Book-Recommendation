@@ -14,8 +14,8 @@ const Page = async () => {
             <HeroText/>
             <TopRatedBooks/>
             <Typewriter/>
-            <Testimonials/>
             <FAQ/>
+            <Testimonials/>
             <Blogs/>
         </>
     );
