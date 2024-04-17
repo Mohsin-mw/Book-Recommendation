@@ -17,19 +17,19 @@ similarity = pickle.load(open('algorithm/similarity.pkl', 'rb'))
 
 # Recommendation method from trained model
 def recommend(title, num_recommendations=10):
-    index = new_data[new_data['title'] == title].index[0]
+    index = new_data[new_data['Title'] == title].index[0]
     distance = sorted(enumerate(similarity[index]), reverse=True, key=lambda vector: vector[1])
     recommendations = []
     for i in distance[1:num_recommendations + 1]:
         book_info = new_data.iloc[i[0]]
         recommendations.append({
-            'Title': book_info.title,
-            'Description': book_info.description,
-            'Author': book_info.author,
-            'Publication': book_info.publication,
-            'ISBN': str(book_info.isbn),
-            'Pages': str(book_info.pages),
-            'Image': book_info.image
+            'Title': book_info.Title,
+            'Description': book_info.Description,
+            'Author': book_info.Author,
+            'Publication': book_info.Publication,
+            'ISBN': str(book_info.ISBN),
+            'Pages': str(book_info.Pages),
+            'Image': book_info.Image
         })
     return recommendations
 
