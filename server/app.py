@@ -6,6 +6,7 @@ from resources.Book import blp as BookBlueprint
 from resources.User import user_blp as UserBlueprint
 from resources.UserFavorites import blp as UserFavorites
 from resources.Comments import comment_blp as CommentBlueprint
+from resources.WishList import blp as WishList
 from flask_migrate import Migrate
 from flask_cors import CORS
 
@@ -43,5 +44,6 @@ def create_app(db_url=None):
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(UserFavorites)
     api.register_blueprint(CommentBlueprint)
+    api.register_blueprint(WishList)
 
     return app

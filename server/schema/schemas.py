@@ -37,3 +37,9 @@ class RequestSchema(Schema):
     id = fields.Integer(dump_only=True)
     title = fields.Str(required=True)
     isbn = fields.Str(required=True)
+
+
+class WishListSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    user_id = fields.Str(required=True)
+    book_id = fields.Integer(required=True)
