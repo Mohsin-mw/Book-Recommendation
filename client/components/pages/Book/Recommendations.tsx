@@ -41,7 +41,6 @@ const Recommendations = ({title}: { title: string }) => {
             try {
                 const response = await GetRecommendations(title, currentPage);
                 setBooksSet(response.data);
-                console.log(response.data)
             } catch (error: any) {
                 setError(error.message);
             } finally {

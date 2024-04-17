@@ -57,3 +57,6 @@ export async function RemoveFavoriteBooks(clerkId: string | null, bookId: number
         }
     });
 }
+
+
+// DELETE WISH LIST BOOKS

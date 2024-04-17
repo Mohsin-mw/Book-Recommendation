@@ -27,7 +27,7 @@ const Blogs = () => {
         }
     ]
     return (
-        <div className="py-4 flex bg-white flex-col gap-y-2 md:flex-row items-center justify-center">
+        <div className="py-4 flex bg-white flex-col gap-y-2 md:flex-row md:gap-x-32 items-center justify-center">
             {
                 blogsList.map((item, index) => (
                     <BlogCard
