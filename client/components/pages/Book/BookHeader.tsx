@@ -14,9 +14,9 @@ const BookHeader = ({book, userId}: { book: bookInterface, userId?: string | nul
         if (userId) {
             try {
                 const response = await AddUserFavoriteBook(userId, book.id);
-                toast(response.data.message)
+                toast("Book Added To Favorites")
             } catch (e: any) {
-                toast(e.response.data.message)
+                toast("Something Went Wrong")
             }
 
         }
@@ -26,9 +26,9 @@ const BookHeader = ({book, userId}: { book: bookInterface, userId?: string | nul
         if (userId) {
             try {
                 const response = await AddBookToWishList(userId, book.id);
-                toast(response.data.message)
+                toast("Book Added To WishList")
             } catch (e: any) {
-                toast(e.response.data.message)
+                toast("Something Went Wrong")
             }
 
         }

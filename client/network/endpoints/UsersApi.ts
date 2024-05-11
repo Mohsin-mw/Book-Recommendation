@@ -7,53 +7,51 @@ type registerUser = {
 
 
 export async function RegisterUser(data: registerUser) {
-    return await axiosClient().post("/users", {
+    return await axiosClient().post("http://localhost:8000/api/users/", {
         "username": data.username,
         "clerk_id": data.clerk_id
     });
 }
 
+// USERS, COMMENTS, WISHLIST, FAVORITES, REQUEST BOOK ( D_O_N_E )
+
 export async function AddUserFavoriteBook(id: string, bookId: number) {
-    return await axiosClient().post("/favorite", {
-        "clerk_id": id,
-        "book_id": bookId
+    return await axiosClient().post("http://localhost:8000/api/favorites", {
+        "user": id,
+        "book": bookId
     });
 }
 
 export async function AddBookToWishList(id: string, bookId: number) {
-    return await axiosClient().post("/wishList", {
-        "clerk_id": id,
-        "book_id": bookId
+    return await axiosClient().post("http://localhost:8000/api/wishList", {
+        "user_id": id,
+        "book": bookId
     });
 }
 
 export async function GetUserFavoriteBooks(id: string | null) {
-    return await axiosClient().post("/favoritesList", {
-        "clerk_id": id,
-    }, {
-        headers: {
-            'Cache-Control': "no-cache, no-store, must-revalidate"
-        }
-    });
+    return await axiosClient().get(`http://localhost:8000/api/favorites-by-user?clerk_id=${id}`);
 }
 
 
 export async function GetUserWishList(id: string | null) {
-    return await axiosClient().post("/userWishList", {
-        "clerk_id": id,
-    }, {
-        headers: {
-            'Cache-Control': "no-cache, no-store, must-revalidate"
+    return await axiosClient().get(`http://localhost:8000/api/wish-by-user?clerk_id=${id}`)
+}
+
+export async function RemoveWishListBooks(clerkId: string | null, bookId: number) {
+    return await axiosClient().delete("http://localhost:8000/api/wishList/delete/", {
+        data: {
+            "user_id": clerkId,
+            "wishList_id": bookId
         }
     });
 }
 
-
 export async function RemoveFavoriteBooks(clerkId: string | null, bookId: number) {
-    return await axiosClient().delete("/favoritesList", {
+    return await axiosClient().delete("http://localhost:8000/api/favorites-by-user/delete/", {
         data: {
-            "clerk_id": clerkId,
-            "book_id": bookId
+            "user_id": clerkId,
+            "favorite_id": bookId
         }
     });
 }

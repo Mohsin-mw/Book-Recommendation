@@ -17,54 +17,39 @@ export interface GetRecommendationsResponse {
 
 
 export async function QueryBooks(query: string): Promise<AxiosPromise> {
-    return await axiosClient().get(`/books?query=${query}`).then(res => res.data)
+    return await axiosClient().get(`http://localhost:8000/api/books/book?title=${query}`).then(res => res.data)
 }
 
 export async function GetBook(isbn: string): Promise<AxiosPromise> {
-    return await axiosClient().get(`/booksbyid/${isbn}`).then(res => res.data)
+    return await axiosClient().get(`http://localhost:8000/api/books/book?isbn=${isbn}`).then(res => res.data)
 }
 
-export async function GetRecommendations(title: string, page: number = 1, perPage: number = 10): Promise<AxiosPromise> {
+export async function GetRecommendations(title: string, page: number, perPage: number = 10): Promise<AxiosPromise> {
     try {
-        const response = await axiosClient().post(`/recommendations?page=${page}&per_page=${perPage}`, {title});
+        const response = await axiosClient().get(`http://localhost:8000/api/books/recommendations?page=${page}&title=${title}`);
         return response.data;
     } catch (error: any) {
         throw new Error(error.response.data.error || 'Failed to get recommendations');
     }
 }
 
-export async function GetBooksByGenre(genre: string, page?: number): Promise<AxiosPromise> {
-    return await axiosClient().get(`/books/genres/${genre}?page=${page ? page : 1}`)
-}
-
 export async function GetTopRatedBooks(): Promise<AxiosPromise> {
-    return await axiosClient().get(`/books/top-rated`).then(res => res.data)
+    return await axiosClient().get(`http://localhost:8000/api/books/top-rated-books`).then(res => res.data)
 }
 
-
-export async function getAllComments(): Promise<AxiosPromise> {
-    return await axiosClient().get('/comments');
-}
 
 export async function addComment(commentData: any): Promise<AxiosPromise> {
     console.log(commentData)
-    return await axiosClient().post('/comments', commentData);
+    return await axiosClient().post('http://localhost:8000/api/comments', commentData);
 }
 
-export async function updateComment(commentId: number, commentData: any): Promise<AxiosPromise> {
-    return await axiosClient().put(`/comments/${commentId}`, commentData);
-}
-
-export async function deleteComment(commentId: number): Promise<AxiosPromise> {
-    return await axiosClient().delete(`/comments/${commentId}`);
-}
 
 export async function getCommentsByBook(bookId: number): Promise<AxiosPromise> {
-    return await axiosClient().get(`/comments/book/${bookId}`);
+    return await axiosClient().get(`http://localhost:8000/api/comments-by-book?book_id=${bookId}`);
 }
 
 export async function requestNewBook(bookTitle: string, bookISBN: string): Promise<AxiosPromise> {
-    return await axiosClient().post('/requests', {
+    return await axiosClient().post('http://localhost:8000/api/request', {
         title: bookTitle,
         isbn: bookISBN
     })

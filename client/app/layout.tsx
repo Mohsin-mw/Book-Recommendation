@@ -24,7 +24,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="fr" className="antialiased">
             <body className={`${outfit.className} bg-secondary text-black`}>
-            <TanstackProvider>{children}</TanstackProvider>
+            {children}
             <Toaster/>
             </body>
             </html>

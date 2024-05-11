@@ -9,9 +9,8 @@ const Page = async () => {
 
     const {userId} = auth();
     const response = await GetUserFavoriteBooks(userId)
-    const {favorites}: { favorites: bookInterface[] } = response.data
     return (
-        <FavoriteBooksGrid favorites={favorites} clerkId={userId}/>
+        <FavoriteBooksGrid favorites={response.data} clerkId={userId}/>
     )
 }
 

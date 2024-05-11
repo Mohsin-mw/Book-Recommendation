@@ -5,7 +5,7 @@ import Link from "next/link";
 import {Input} from "@/components/ui/input";
 import {BiSearch} from "react-icons/bi";
 import {Button} from "@/components/ui/button";
-import {queryInterface} from "@/types/types";
+import {bookInterface, queryInterface} from "@/types/types";
 import {QueryBooks} from "@/network/endpoints/BooksApi";
 import RequestBook from "@/components/pages/Landing/RequestBook";
 
@@ -13,13 +13,15 @@ const Search = () => {
     const [query, setQuery] = useState('');
     const [open, setOpen] = useState(false)
 
-    const [suggestions, setSuggestions] = useState<queryInterface>();
+    const [suggestions, setSuggestions] = useState<bookInterface[]>();
     const handleChange = async (event: { target: { value: string; }; }) => {
         const newQuery = event.target.value;
         setQuery(newQuery);
         try {
             const response = await QueryBooks(newQuery);
-            setSuggestions(response.data);
+
+            setSuggestions(response.data.result);
+            console.log(response.data)
         } catch (error) {
         }
         if (newQuery == "") {
@@ -54,12 +56,12 @@ const Search = () => {
                     </Button>
                 </div>
                 {
-                    suggestions?.books ? (
+                    suggestions ? (
                         <div
                             className="absolute w-full bg-white rounded-md shadow-light100 top-[110%] overflow-hidden ">
                             <div className={"px-4 flex-column-start"}>
                                 {
-                                    suggestions.books.map((book, i) => (
+                                    suggestions.map((book: bookInterface, i) => (
                                         <Link
                                             key={i}
                                             className="py-2 border-b-2 hover:border-b-primary duration-200 text-[14px] hover:text-[15px] w-full group text-gray-900"

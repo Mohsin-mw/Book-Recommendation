@@ -22,3 +22,7 @@ const Page = async () => {
 };
 
 export default Page;
+
+// TOP RATED API DONE
+// SEARCH API DONE
+// GET SINGLE BOOK API DONE

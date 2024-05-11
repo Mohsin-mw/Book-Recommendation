@@ -3,15 +3,14 @@ import {auth} from "@clerk/nextjs";
 import {bookInterface} from "@/types/types";
 import React from "react";
 import FavoriteBooksGrid from "@/components/pages/Favorite/BooksGrid";
-
+import WishListBookGrid from "@/components/pages/WishList/WishListBooksGrid";
 const Page = async () => {
 
 
     const {userId} = auth();
     const response = await GetUserWishList(userId)
-    const {whish_list}: { whish_list: bookInterface[] } = response.data
     return (
-        <FavoriteBooksGrid favorites={whish_list} clerkId={userId}/>
+        <WishListBookGrid favorites={response.data} clerkId={userId}/>
     )
 }
 

@@ -43,9 +43,8 @@ export function UserCommentSection({book_id, user_id, user_name}: {
         try {
             const comm = data.userComment
             const reponse = await addComment({
-                book_id,
+                "book": book_id,
                 user_id,
-                user_name,
                 comment_text: comm
             })
             toast("You comment has been submitted")

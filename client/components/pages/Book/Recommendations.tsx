@@ -17,13 +17,11 @@ import {
 
 
 interface BooksSet {
-    books: bookInterface[],
-    pagination: {
-        current_page: number;
-        per_page: number;
-        total_books: number;
-        total_pages: number;
-    }
+    results: bookInterface[],
+    next: string;
+    count: number;
+    previous: string;
+    current_page: number
 }
 
 
@@ -32,15 +30,14 @@ const Recommendations = ({title}: { title: string }) => {
     const [booksSet, setBooksSet] = useState<BooksSet>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    console.log(title)
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             setError(null);
 
             try {
-                const response = await GetRecommendations(title, currentPage);
-                setBooksSet(response.data);
+                const response: any = await GetRecommendations(title, currentPage);
+                setBooksSet(response);
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -62,8 +59,8 @@ const Recommendations = ({title}: { title: string }) => {
         <>
             <div>
                 {
-                    booksSet?.books ? (
-                        <BooksGrid books={booksSet?.books}/>
+                    booksSet?.results ? (
+                        <BooksGrid books={booksSet?.results}/>
                     ) : ""
                 }
             </div>
@@ -75,12 +72,12 @@ const Recommendations = ({title}: { title: string }) => {
 
 
                                 {
-                                    booksSet?.pagination ? booksSet.pagination.current_page > 1 ? (
+                                    booksSet?.previous ?  (
 
                                         <PaginationPrevious
                                             onClick={() => setCurrentPage(currentPage = currentPage - 1)}/>
 
-                                    ) : "" : ""
+                                    ) : ""
                                 }
 
 
@@ -88,21 +85,21 @@ const Recommendations = ({title}: { title: string }) => {
                             <PaginationItem>
                                 <PaginationLink>
                                     <p className="text-base">
-                                        {booksSet?.pagination.current_page}
+                                        {booksSet?.current_page}
                                     </p>
                                 </PaginationLink>
                             </PaginationItem>
                             <PaginationItem className="flex-row-start gap-x-2">
                                 <PaginationEllipsis/>
-                                <p className="text-base">{booksSet?.pagination.total_pages}</p>
+                                <p className="text-base">3</p>
                             </PaginationItem>
                             <PaginationItem className="cursor-pointer">
                                 {
-                                    booksSet?.pagination ? booksSet.pagination.current_page < booksSet.pagination.total_pages ? (
+                                    booksSet?.next ?  (
 
                                         <PaginationNext onClick={() => setCurrentPage(currentPage = currentPage + 1)}/>
 
-                                    ) : "" : ""
+                                    ) : ""
                                 }
                             </PaginationItem>
                         </PaginationContent>

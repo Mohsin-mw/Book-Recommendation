@@ -14,7 +14,7 @@ interface commentInterface {
 
 const Comments = async ({bookId}: { bookId: number }) => {
     const {data} = await getCommentsByBook(bookId)
-    const {comments}: { comments: commentInterface[] } = data.data
+    const comments: commentInterface[]  = data
     const {userId} = auth();
     let email: string = "";
     if (typeof userId === "string") {
@@ -50,7 +50,7 @@ const Comments = async ({bookId}: { bookId: number }) => {
                     comments.map((comment, index) => (
                         <div key={index} className="flex-column-start border-b-2 w-full">
                             <div className="flex-row-start gap-x-2">
-                                <span className="text-tertiary font-bold">{comment.user_name}</span>
+                                <span className="text-tertiary font-bold">{comment.user_id}</span>
                                 ~ <span className="text-gray-400">{formatTimestamp(comment.timestamp)}</span>
                             </div>
                             <div>

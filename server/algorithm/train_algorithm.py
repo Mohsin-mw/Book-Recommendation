@@ -7,10 +7,11 @@ from random import sample
 movies = pd.read_csv('../dataset/french_books.csv')
 
 
+
 movies['tags'] = movies['Title'] + ' ' + movies['Description'] + ' ' + movies['Author'] + ' ' + movies['Publication'].astype(str) + ' ' + movies['ISBN'].astype(str) + ' ' + movies['Pages'].astype(str) + ' ' + movies['Image'].apply(lambda x: ' '.join(x))
 
 new_data = movies
-cv = CountVectorizer(max_features=1039, stop_words='english')
+cv = CountVectorizer(max_features=1445, stop_words='english')
 vector = cv.fit_transform(new_data['tags'].values.astype('U')).toarray()
 
 similarity = cosine_similarity(vector)
