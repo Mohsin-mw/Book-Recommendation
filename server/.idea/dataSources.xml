@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="TMUL_DB@tmulbdb.cjikgyue6il0.eu-west-3.rds.amazonaws.com" uuid="328b4196-c752-43d9-a35e-4ba4e52a627d">
+    <data-source source="LOCAL" name="postgres@tmulbdb.cjikgyue6il0.eu-west-3.rds.amazonaws.com" uuid="47066e73-2e65-4454-8e1b-ee40c9a90846">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://tmulbdb.cjikgyue6il0.eu-west-3.rds.amazonaws.com:5432/TMUL_DB</jdbc-url>
+      <jdbc-url>jdbc:postgresql://tmulbdb.cjikgyue6il0.eu-west-3.rds.amazonaws.com:5432/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

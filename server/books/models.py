@@ -6,7 +6,7 @@ class Book(models.Model):
     class Meta:
         db_table = 'books'
 
-    id = models.PositiveIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=300)
     description = models.TextField(max_length=800, default='')
     author = models.CharField(max_length=100)
